@@ -164,41 +164,49 @@
       padding: 3px 10px; border-radius: 4px;
     }
 
-    /* Bitronics */
+    /* Bitronics section */
+    #bitronics { background: var(--bg2); }
+    .bit-section-head { margin-bottom: 48px; }
     .bit-card {
       background: var(--card); border: 1px solid var(--accent);
-      border-radius: 12px; padding: 40px 36px; margin-top: 48px;
+      border-radius: 12px; padding: 40px 36px;
       box-shadow: 0 0 60px rgba(46,204,113,.1), inset 0 0 40px rgba(46,204,113,.03);
-      display: grid; gap: 32px;
+      display: grid; gap: 32px; margin-bottom: 48px;
     }
-    @media(min-width:640px) { .bit-card { grid-template-columns: 1fr 1fr; align-items: center; } }
+    @media(min-width:640px) { .bit-card { grid-template-columns: 1fr 1fr; align-items: start; } }
     .bit-logo { font-size: 22px; font-weight: 700; letter-spacing: .1em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
-    .bit-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .bit-desc { font-size: 14px; color: var(--muted); line-height: 1.8; }
     .bit-stats { display: flex; flex-direction: column; gap: 16px; }
     .bstat { display: flex; align-items: baseline; gap: 14px; }
     .bstat-n { font-size: 2.2rem; font-weight: 700; color: var(--accent); line-height: 1; }
     .bstat-l { font-size: 13px; color: var(--muted); }
-    .bit-footer { grid-column: 1/-1; display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); }
-    .badge { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 5px 14px; border-radius: 6px; }
+    .bit-videos {
+      display: flex; gap: 14px; overflow-x: auto;
+      padding-bottom: 10px; -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin; scrollbar-color: var(--accent) transparent;
+    }
 
     /* ── PARTNERSHIP ── */
-    #partnership { background: var(--bg2); }
-    .partner-grid { display: grid; gap: 1px; background: var(--border); grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    #partnership { background: var(--bg); }
+    .partner-sub { color: var(--muted); margin-top: -40px; margin-bottom: 56px; font-size: 15px; }
+    .partner-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); }
     .partner-card {
-      background: var(--card); padding: 40px 32px;
-      transition: background .25s, transform .25s;
+      background: var(--card); padding: 40px 36px;
+      border: 1px solid var(--border); border-radius: 12px;
+      transition: background .25s, transform .25s, border-color .25s, box-shadow .25s;
       position: relative; overflow: hidden;
     }
-    .partner-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
-      height: 3px; background: var(--accent); transform: scaleX(0);
-      transition: transform .3s; transform-origin: left;
+    .partner-card:hover {
+      background: #0f2018; transform: translateY(-4px);
+      border-color: var(--accent); box-shadow: 0 16px 48px rgba(46,204,113,.12);
     }
-    .partner-card:hover::after { transform: scaleX(1); }
-    .partner-card:hover { background: #0f2018; transform: translateY(-3px); }
-    .p-icon { font-size: 36px; margin-bottom: 20px; }
-    .partner-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-    .partner-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .p-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 16px;
+    }
+    .partner-card h3 { font-size: 22px; font-weight: 700; margin-bottom: 20px; letter-spacing: -.01em; }
+    .partner-card p { font-size: 14px; color: var(--muted); line-height: 1.75; }
+    .partner-card p + p { margin-top: 14px; }
 
     /* ── FOOTER ── */
     footer { padding: 48px 24px; text-align: center; border-top: 1px solid var(--border); }
@@ -309,7 +317,16 @@
 <div class="wrap" id="works">
   <div class="s-label">05 — Портфолио</div>
   <h2>Что мы <span>создаём</span></h2>
-  <p class="works-sub">Рекламные ролики, фильмы, Reels — всё через AI</p>
+  <p class="works-sub">Рекламные ролики и Reels — всё через AI</p>
+
+  <div class="slider-block reveal">
+    <div class="slider-hd">Reels (9:16)</div>
+    <div class="slider-row">
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #1</div><span class="vc-tag">Reels</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #2</div><span class="vc-tag">Reels</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #3</div><span class="vc-tag">Reels</span></div></div>
+    </div>
+  </div>
 
   <div class="slider-block reveal">
     <div class="slider-hd">Рекламные ролики</div>
@@ -317,43 +334,34 @@
       <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #1</div><span class="vc-tag">Реклама</span></div></div>
       <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #2</div><span class="vc-tag">Реклама</span></div></div>
       <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #3</div><span class="vc-tag">Реклама</span></div></div>
-      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #4</div><span class="vc-tag">Реклама</span></div></div>
     </div>
   </div>
+</div>
 
-  <div class="slider-block reveal">
-    <div class="slider-hd">Фильмы / короткий метр</div>
-    <div class="slider-row">
-      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Фильм #1</div><span class="vc-tag">Фильм</span></div></div>
-      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Фильм #2</div><span class="vc-tag">Фильм</span></div></div>
-      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Фильм #3</div><span class="vc-tag">Фильм</span></div></div>
-    </div>
-  </div>
+<!-- BITRONICS -->
+<div id="bitronics">
+  <div class="wrap">
+    <div class="s-label bit-section-head">Кейс — Bitronics</div>
+    <h2>Продакшн для <span>крипто-платформы</span></h2>
 
-  <div class="slider-block reveal">
-    <div class="slider-hd">Instagram Reels</div>
-    <div class="slider-row">
-      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #1</div><span class="vc-tag">Reels</span></div></div>
-      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #2</div><span class="vc-tag">Reels</span></div></div>
-      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #3</div><span class="vc-tag">Reels</span></div></div>
-      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #4</div><span class="vc-tag">Reels</span></div></div>
-      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #5</div><span class="vc-tag">Reels</span></div></div>
+    <div class="bit-card reveal">
+      <div>
+        <div class="bit-logo">⬡ BITRONICS</div>
+        <p class="bit-desc">Bitronics — крипто-платформа с аудиторией по всему миру.</p>
+        <p class="bit-desc" style="margin-top:12px;">Создаём для них Reels которые набирают охваты — от идеи и сценария до финального монтажа. Весь AI-продакшн под ключ.</p>
+      </div>
+      <div class="bit-stats">
+        <div class="bstat"><span class="bstat-n">×4</span><span class="bstat-l">рост охватов за 2 месяца</span></div>
+        <div class="bstat"><span class="bstat-n">−80%</span><span class="bstat-l">времени на создание контента</span></div>
+        <div class="bstat"><span class="bstat-n">×3</span><span class="bstat-l">больше контента при той же команде</span></div>
+      </div>
     </div>
-  </div>
 
-  <div class="bit-card reveal">
-    <div>
-      <div class="bit-logo">⬡ BITRONICS</div>
-      <p class="bit-desc">Разработали полный AI-стек для крипто-платформы: автоматизация поддержки, AI-контент-стратегия и продакшн рекламных материалов. Всё под ключ — от архитектуры до публикации.</p>
-    </div>
-    <div class="bit-stats">
-      <div class="bstat"><span class="bstat-n">×4</span><span class="bstat-l">рост охватов за 2 месяца</span></div>
-      <div class="bstat"><span class="bstat-n">−80%</span><span class="bstat-l">времени на создание контента</span></div>
-      <div class="bstat"><span class="bstat-n">24/7</span><span class="bstat-l">AI-поддержка без операторов</span></div>
-    </div>
-    <div class="bit-footer">
-      <span class="badge">Крипто-партнёр</span>
-      <span style="font-size:12px;color:var(--muted);">Логотип и финальные цифры — от заказчика</span>
+    <div class="slider-hd reveal">Видео-кейсы</div>
+    <div class="bit-videos reveal">
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Кейс #1</div><span class="vc-tag">Bitronics</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Кейс #2</div><span class="vc-tag">Bitronics</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Кейс #3</div><span class="vc-tag">Bitronics</span></div></div>
     </div>
   </div>
 </div>
@@ -362,22 +370,26 @@
 <div id="partnership">
   <div class="wrap">
     <div class="s-label">06 — Партнёрство</div>
-    <h2>Давайте строить <span>вместе</span></h2>
+    <h2>Работаем <span>вместе</span></h2>
+    <p class="partner-sub">Три формата партнёрства — выбирай свой</p>
     <div class="partner-grid">
       <div class="partner-card reveal">
-        <div class="p-icon">🤝</div>
-        <h3>Реферал</h3>
-        <p>Приводите клиентов — получаете комиссию с каждой сделки</p>
+        <div class="p-label">Формат 01</div>
+        <h3>White Label</h3>
+        <p>Мы делаем продакшн и автоматизацию — под брендом вашего агентства. Клиент видит только вас.</p>
+        <p>Подходит агентствам, которые хотят расширить услуги без найма команды.</p>
       </div>
       <div class="partner-card reveal">
-        <div class="p-icon">🏷️</div>
-        <h3>White-label</h3>
-        <p>Наши AI-системы и продакшн под вашим брендом</p>
+        <div class="p-label">Формат 02</div>
+        <h3>Совместный проект</h3>
+        <p>Подключаемся на этапе обсуждения с вашим клиентом. Вы — стратегия и клиент. Мы — продакшн и технологии.</p>
+        <p>Делим зоны ответственности, сохраняете креативный контроль.</p>
       </div>
       <div class="partner-card reveal">
-        <div class="p-icon">🚀</div>
-        <h3>Совместный продукт</h3>
-        <p>Строим решение вместе под общий рынок и клиентскую базу</p>
+        <div class="p-label">Формат 03</div>
+        <h3>Реферальная программа</h3>
+        <p>Рекомендуете нас — получаете 10–20% от суммы сделки. Выплата сразу после закрытия.</p>
+        <p>Все материалы для презентации клиенту предоставляем мы.</p>
       </div>
     </div>
   </div>
