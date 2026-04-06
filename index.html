@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TRENITY — AI Agency</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #060D0A;
+      --bg2: #0A1510;
+      --accent: #2ECC71;
+      --accent2: #1aff7a;
+      --accent-dim: rgba(46,204,113,0.15);
+      --accent-glow: rgba(46,204,113,0.35);
+      --text: #F0F8F4;
+      --muted: #6B8F7A;
+      --card: #0D1A12;
+      --border: #1A3025;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; }
+
+    /* SCROLLBAR */
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100svh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 60px 24px; position: relative; overflow: hidden;
+    }
+    .grid-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(46,204,113,0.05) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(46,204,113,0.05) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .grid-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(46,204,113,0.07) 0%, transparent 70%);
+    }
+    .hero-inner { position: relative; z-index: 1; opacity: 0; transform: translateY(28px); animation: rise 1s cubic-bezier(.16,1,.3,1) 0.2s forwards; }
+    @keyframes rise { to { opacity:1; transform:translateY(0); } }
+
+    .logo-mark {
+      width: 72px; height: 72px; margin: 0 auto 28px;
+      position: relative;
+    }
+    .logo-mark svg { width: 100%; height: 100%; filter: drop-shadow(0 0 18px rgba(46,204,113,0.6)); }
+
+    .hero-eyebrow {
+      font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 24px;
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; width: 40px; height: 1px; background: var(--accent); opacity: .5;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 7vw, 4.2rem); font-weight: 700;
+      line-height: 1.1; letter-spacing: -.03em; margin-bottom: 20px;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .hero-sub { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--muted); letter-spacing: .06em; }
+
+    /* ── SECTION BASE ── */
+    .wrap { max-width: 1140px; margin: 0 auto; padding: 96px 24px; }
+    .s-label { font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+    h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; letter-spacing: -.025em; margin-bottom: 56px; line-height: 1.15; }
+    h2 span { color: var(--accent); }
+
+    /* ── SERVICES ── */
+    .svc-grid {
+      display: grid; gap: 1px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      background: var(--border);
+    }
+    .svc-card {
+      background: var(--card); padding: 32px 28px;
+      transition: background .25s;
+      position: relative; overflow: hidden;
+    }
+    .svc-card::before {
+      content: ''; position: absolute; inset: 0; opacity: 0;
+      background: linear-gradient(135deg, var(--accent-dim), transparent 60%);
+      transition: opacity .3s;
+    }
+    .svc-card:hover::before { opacity: 1; }
+    .svc-card:hover { background: #0f2018; }
+    .svc-num { font-size: 11px; font-weight: 700; color: var(--accent); letter-spacing: .15em; margin-bottom: 16px; }
+    .svc-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 18px; }
+    .svc-card ul { list-style: none; }
+    .svc-card ul li { font-size: 13px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,.04); line-height: 1.5; }
+    .svc-card ul li:last-child { border: none; }
+    .svc-card ul li::before { content: '— '; color: var(--accent); opacity: .6; }
+
+    /* ── NUMBERS ── */
+    #numbers { background: var(--bg2); }
+    .num-grid {
+      display: grid; gap: 1px;
+      grid-template-columns: repeat(2, 1fr);
+      background: var(--border);
+    }
+    @media(min-width:640px) { .num-grid { grid-template-columns: repeat(3,1fr); } }
+    .num-card {
+      background: var(--card); padding: 44px 28px; text-align: center;
+      transition: background .25s;
+    }
+    .num-card:hover { background: #0f2018; }
+    .num-val {
+      font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight: 700;
+      color: var(--accent); line-height: 1; margin-bottom: 12px;
+      text-shadow: 0 0 24px rgba(46,204,113,.4);
+    }
+    .num-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
+
+    /* ── WORKS ── */
+    .works-sub { color: var(--muted); margin-top: -40px; margin-bottom: 48px; font-size: 15px; }
+    .slider-block { margin-bottom: 60px; }
+    .slider-hd {
+      font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 18px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .slider-hd::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .slider-row {
+      display: flex; gap: 14px; overflow-x: auto;
+      padding-bottom: 10px; -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin; scrollbar-color: var(--accent) transparent;
+    }
+    .vc {
+      flex-shrink: 0; width: 240px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
+      cursor: pointer; transition: border-color .2s, transform .2s, box-shadow .2s;
+    }
+    .vc:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(46,204,113,.15); }
+    .vc.reel { width: 148px; }
+    .vc-thumb {
+      width: 100%; aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #0d1f15 0%, #0a1610 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .vc.reel .vc-thumb { aspect-ratio: 9/16; }
+    .play-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      background: var(--accent); display: flex; align-items: center; justify-content: center;
+      font-size: 18px; color: #060D0A; font-weight: 700;
+      box-shadow: 0 0 20px rgba(46,204,113,.5);
+      transition: transform .2s;
+    }
+    .vc:hover .play-btn { transform: scale(1.1); }
+    .vc-body { padding: 14px 16px; }
+    .vc-name { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+    .vc-tag {
+      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--accent); background: var(--accent-dim);
+      padding: 3px 10px; border-radius: 4px;
+    }
+
+    /* Bitronics */
+    .bit-card {
+      background: var(--card); border: 1px solid var(--accent);
+      border-radius: 12px; padding: 40px 36px; margin-top: 48px;
+      box-shadow: 0 0 60px rgba(46,204,113,.1), inset 0 0 40px rgba(46,204,113,.03);
+      display: grid; gap: 32px;
+    }
+    @media(min-width:640px) { .bit-card { grid-template-columns: 1fr 1fr; align-items: center; } }
+    .bit-logo { font-size: 22px; font-weight: 700; letter-spacing: .1em; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .bit-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+    .bit-stats { display: flex; flex-direction: column; gap: 16px; }
+    .bstat { display: flex; align-items: baseline; gap: 14px; }
+    .bstat-n { font-size: 2.2rem; font-weight: 700; color: var(--accent); line-height: 1; }
+    .bstat-l { font-size: 13px; color: var(--muted); }
+    .bit-footer { grid-column: 1/-1; display: flex; align-items: center; gap: 12px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .badge { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 5px 14px; border-radius: 6px; }
+
+    /* ── PARTNERSHIP ── */
+    #partnership { background: var(--bg2); }
+    .partner-grid { display: grid; gap: 1px; background: var(--border); grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); }
+    .partner-card {
+      background: var(--card); padding: 40px 32px;
+      transition: background .25s, transform .25s;
+      position: relative; overflow: hidden;
+    }
+    .partner-card::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 3px; background: var(--accent); transform: scaleX(0);
+      transition: transform .3s; transform-origin: left;
+    }
+    .partner-card:hover::after { transform: scaleX(1); }
+    .partner-card:hover { background: #0f2018; transform: translateY(-3px); }
+    .p-icon { font-size: 36px; margin-bottom: 20px; }
+    .partner-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+    .partner-card p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── FOOTER ── */
+    footer { padding: 48px 24px; text-align: center; border-top: 1px solid var(--border); }
+    footer .f-logo { font-size: 20px; font-weight: 700; letter-spacing: -.01em; margin-bottom: 8px; }
+    footer .f-sub { font-size: 13px; color: var(--muted); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(30px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-inner">
+    <div class="logo-mark">
+      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M40 8 L68 24 L68 56 L40 72 L12 56 L12 24 Z" stroke="#2ECC71" stroke-width="1.5" fill="rgba(46,204,113,0.06)"/>
+        <path d="M24 30 L40 20 L56 30 L56 34 L44 42 L44 60 L36 60 L36 42 L24 34 Z" fill="#2ECC71"/>
+      </svg>
+    </div>
+    <div class="hero-eyebrow">Blockchain Forum 2026</div>
+    <h1>Мы строим <em>AI-слой</em><br>для вашего бизнеса</h1>
+    <p class="hero-sub">Автоматизация &nbsp;·&nbsp; Контент &nbsp;·&nbsp; Архитектура</p>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<div class="wrap" id="services">
+  <div class="s-label">02 — Услуги</div>
+  <h2>Что мы <span>делаем</span></h2>
+  <div class="svc-grid">
+    <div class="svc-card reveal">
+      <div class="svc-num">01</div>
+      <h3>AI-Автоматизация</h3>
+      <ul>
+        <li>Auto-reply для мессенджеров и LinkedIn</li>
+        <li>AI SDR и квалификация лидов</li>
+        <li>AI voice agent для холодных звонков</li>
+        <li>CRM-автоматизация</li>
+        <li>RAG-системы</li>
+        <li>AI для outreach</li>
+        <li>Автоматизация рекрутинга</li>
+        <li>Боты для поддержки клиентов</li>
+      </ul>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">02</div>
+      <h3>AI-Контент и Продакшн</h3>
+      <ul>
+        <li>AI-видео для соцсетей и рекламы</li>
+        <li>AI-аватары и цифровые спикеры</li>
+        <li>AI-фото и визуалы для брендинга</li>
+        <li>Автоматизированные контент-цепочки</li>
+        <li>UGC-контент через AI</li>
+        <li>Локализация и озвучка через AI</li>
+        <li>Генерация сценариев и сторибордов</li>
+      </ul>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">03</div>
+      <h3>AI-Архитектура и Разработка</h3>
+      <ul>
+        <li>Проектирование AI-систем под бизнес</li>
+        <li>Интеграции с внешними API</li>
+        <li>Парсинг и обогащение данных</li>
+        <li>Telegram-боты с AI-логикой</li>
+        <li>Веб-скрейпинг и мониторинг</li>
+        <li>Дашборды и аналитика</li>
+        <li>Кастомные LLM-решения</li>
+      </ul>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">04</div>
+      <h3>SMM-Агент</h3>
+      <ul>
+        <li>Автоматическая публикация по расписанию</li>
+        <li>Мониторинг упоминаний и комментариев</li>
+        <li>AI-генерация постов под tone of voice</li>
+        <li>Аналитика вовлечённости и охватов</li>
+        <li>Автоответы в комментариях и директе</li>
+        <li>Кросс-постинг на несколько платформ</li>
+        <li>Контент-план на месяц вперёд</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- NUMBERS -->
+<div id="numbers">
+  <div class="wrap">
+    <div class="s-label">04 — Результаты</div>
+    <h2>Что даёт <span>внедрение AI</span></h2>
+    <div class="num-grid">
+      <div class="num-card reveal"><div class="num-val" data-target="70" data-prefix="−" data-suffix="%">−0%</div><div class="num-desc">ручного труда в процессах</div></div>
+      <div class="num-card reveal"><div class="num-val" data-target="3" data-prefix="×">×0</div><div class="num-desc">скорость ответа на лиды</div></div>
+      <div class="num-card reveal"><div class="num-val" data-target="5" data-prefix="−">−0</div><div class="num-desc">лишних сотрудников в команде</div></div>
+      <div class="num-card reveal"><div class="num-val" data-target="40" data-prefix="+" data-suffix="%">+0%</div><div class="num-desc">reply rate в outreach</div></div>
+      <div class="num-card reveal"><div class="num-val" data-static="1">2–3 нед</div><div class="num-desc">среднее время внедрения</div></div>
+      <div class="num-card reveal"><div class="num-val" data-target="60" data-suffix="+">0+</div><div class="num-desc">специалистов в команде</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- WORKS -->
+<div class="wrap" id="works">
+  <div class="s-label">05 — Портфолио</div>
+  <h2>Что мы <span>создаём</span></h2>
+  <p class="works-sub">Рекламные ролики, фильмы, Reels — всё через AI</p>
+
+  <div class="slider-block reveal">
+    <div class="slider-hd">Рекламные ролики</div>
+    <div class="slider-row">
+      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #1</div><span class="vc-tag">Реклама</span></div></div>
+      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #2</div><span class="vc-tag">Реклама</span></div></div>
+      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #3</div><span class="vc-tag">Реклама</span></div></div>
+      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Ролик #4</div><span class="vc-tag">Реклама</span></div></div>
+    </div>
+  </div>
+
+  <div class="slider-block reveal">
+    <div class="slider-hd">Фильмы / короткий метр</div>
+    <div class="slider-row">
+      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Фильм #1</div><span class="vc-tag">Фильм</span></div></div>
+      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Фильм #2</div><span class="vc-tag">Фильм</span></div></div>
+      <div class="vc" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Фильм #3</div><span class="vc-tag">Фильм</span></div></div>
+    </div>
+  </div>
+
+  <div class="slider-block reveal">
+    <div class="slider-hd">Instagram Reels</div>
+    <div class="slider-row">
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #1</div><span class="vc-tag">Reels</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #2</div><span class="vc-tag">Reels</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #3</div><span class="vc-tag">Reels</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #4</div><span class="vc-tag">Reels</span></div></div>
+      <div class="vc reel" onclick="tapCard(this)"><div class="vc-thumb"><div class="play-btn">▶</div></div><div class="vc-body"><div class="vc-name">Reel #5</div><span class="vc-tag">Reels</span></div></div>
+    </div>
+  </div>
+
+  <div class="bit-card reveal">
+    <div>
+      <div class="bit-logo">⬡ BITRONICS</div>
+      <p class="bit-desc">Разработали полный AI-стек для крипто-платформы: автоматизация поддержки, AI-контент-стратегия и продакшн рекламных материалов. Всё под ключ — от архитектуры до публикации.</p>
+    </div>
+    <div class="bit-stats">
+      <div class="bstat"><span class="bstat-n">×4</span><span class="bstat-l">рост охватов за 2 месяца</span></div>
+      <div class="bstat"><span class="bstat-n">−80%</span><span class="bstat-l">времени на создание контента</span></div>
+      <div class="bstat"><span class="bstat-n">24/7</span><span class="bstat-l">AI-поддержка без операторов</span></div>
+    </div>
+    <div class="bit-footer">
+      <span class="badge">Крипто-партнёр</span>
+      <span style="font-size:12px;color:var(--muted);">Логотип и финальные цифры — от заказчика</span>
+    </div>
+  </div>
+</div>
+
+<!-- PARTNERSHIP -->
+<div id="partnership">
+  <div class="wrap">
+    <div class="s-label">06 — Партнёрство</div>
+    <h2>Давайте строить <span>вместе</span></h2>
+    <div class="partner-grid">
+      <div class="partner-card reveal">
+        <div class="p-icon">🤝</div>
+        <h3>Реферал</h3>
+        <p>Приводите клиентов — получаете комиссию с каждой сделки</p>
+      </div>
+      <div class="partner-card reveal">
+        <div class="p-icon">🏷️</div>
+        <h3>White-label</h3>
+        <p>Наши AI-системы и продакшн под вашим брендом</p>
+      </div>
+      <div class="partner-card reveal">
+        <div class="p-icon">🚀</div>
+        <h3>Совместный продукт</h3>
+        <p>Строим решение вместе под общий рынок и клиентскую базу</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">TRENITY</div>
+  <div class="f-sub">AI Agency &nbsp;·&nbsp; Blockchain Forum 2026 &nbsp;·&nbsp; <a href="https://trenity.io">trenity.io</a></div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // Counter
+  const cObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      if (el.dataset.static) return;
+      const target = +el.dataset.target;
+      const pre = el.dataset.prefix || '';
+      const suf = el.dataset.suffix || '';
+      let start = null, dur = 1400;
+      const step = ts => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3);
+        el.textContent = pre + Math.round(ease * target) + suf;
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      cObs.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.num-val[data-target]').forEach(el => cObs.observe(el));
+
+  // Video tap
+  function tapCard(c) {
+    const btn = c.querySelector('.play-btn');
+    const on = c.dataset.on === '1';
+    c.dataset.on = on ? '0' : '1';
+    btn.textContent = on ? '▶' : '🔊';
+    if (!on) { c.style.borderColor = 'var(--accent)'; c.style.boxShadow = '0 0 24px rgba(46,204,113,.25)'; }
+    else { c.style.borderColor = ''; c.style.boxShadow = ''; }
+  }
+</script>
+</body>
+</html>
