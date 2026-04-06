@@ -48,7 +48,7 @@
     @keyframes rise { to { opacity:1; transform:translateY(0); } }
 
     .logo-mark {
-      width: 72px; height: 72px; margin: 0 auto 28px;
+      width: 90px; height: 90px; margin: 0 auto 28px;
       position: relative;
     }
     .logo-mark svg { width: 100%; height: 100%; filter: drop-shadow(0 0 18px rgba(46,204,113,0.6)); }
@@ -218,14 +218,19 @@
   <div class="grid-bg"></div>
   <div class="hero-inner">
     <div class="logo-mark">
-      <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M40 8 L68 24 L68 56 L40 72 L12 56 L12 24 Z" stroke="#2ECC71" stroke-width="1.5" fill="rgba(46,204,113,0.06)"/>
-        <path d="M24 30 L40 20 L56 30 L56 34 L44 42 L44 60 L36 60 L36 42 L24 34 Z" fill="#2ECC71"/>
+      <svg viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Hexagon outline -->
+        <path d="M45 6 L78 24.5 L78 65.5 L45 84 L12 65.5 L12 24.5 Z" stroke="#2ECC71" stroke-width="1.5" fill="rgba(46,204,113,0.06)"/>
+        <!-- Inner glow rings -->
+        <path d="M45 14 L71 28.5 L71 61.5 L45 76 L19 61.5 L19 28.5 Z" stroke="#2ECC71" stroke-width="0.5" stroke-dasharray="3 4" fill="none" opacity="0.3"/>
+        <!-- T letter shape: horizontal bar + vertical stem -->
+        <rect x="27" y="31" width="36" height="7" rx="2" fill="#2ECC71"/>
+        <rect x="39" y="38" width="12" height="22" rx="2" fill="#2ECC71"/>
       </svg>
     </div>
     <div class="hero-eyebrow">Blockchain Forum 2026</div>
-    <h1>Мы строим <em>AI-слой</em><br>для вашего бизнеса</h1>
-    <p class="hero-sub">Автоматизация &nbsp;·&nbsp; Контент &nbsp;·&nbsp; Архитектура</p>
+    <h1><em>Автоматизируем</em> то, что<br>съедает ваше время</h1>
+    <p class="hero-sub">Автоматизация &nbsp;·&nbsp; Контент</p>
   </div>
 </section>
 
@@ -246,6 +251,13 @@
         <li>AI для outreach</li>
         <li>Автоматизация рекрутинга</li>
         <li>Боты для поддержки клиентов</li>
+        <li>Проектирование AI-систем под бизнес</li>
+        <li>Интеграции с внешними API</li>
+        <li>Парсинг и обогащение данных</li>
+        <li>Telegram-боты с AI-логикой</li>
+        <li>Веб-скрейпинг и мониторинг</li>
+        <li>Дашборды и аналитика</li>
+        <li>Кастомные LLM-решения</li>
       </ul>
     </div>
     <div class="svc-card reveal">
@@ -258,24 +270,11 @@
         <li>Автоматизированные контент-цепочки</li>
         <li>UGC-контент через AI</li>
         <li>Локализация и озвучка через AI</li>
-        <li>Генерация сценариев и сторибордов</li>
+        <li>AI-фильмы</li>
       </ul>
     </div>
     <div class="svc-card reveal">
       <div class="svc-num">03</div>
-      <h3>AI-Архитектура и Разработка</h3>
-      <ul>
-        <li>Проектирование AI-систем под бизнес</li>
-        <li>Интеграции с внешними API</li>
-        <li>Парсинг и обогащение данных</li>
-        <li>Telegram-боты с AI-логикой</li>
-        <li>Веб-скрейпинг и мониторинг</li>
-        <li>Дашборды и аналитика</li>
-        <li>Кастомные LLM-решения</li>
-      </ul>
-    </div>
-    <div class="svc-card reveal">
-      <div class="svc-num">04</div>
       <h3>SMM-Агент</h3>
       <ul>
         <li>Автоматическая публикация по расписанию</li>
@@ -298,10 +297,10 @@
     <div class="num-grid">
       <div class="num-card reveal"><div class="num-val" data-target="70" data-prefix="−" data-suffix="%">−0%</div><div class="num-desc">ручного труда в процессах</div></div>
       <div class="num-card reveal"><div class="num-val" data-target="3" data-prefix="×">×0</div><div class="num-desc">скорость ответа на лиды</div></div>
-      <div class="num-card reveal"><div class="num-val" data-target="5" data-prefix="−">−0</div><div class="num-desc">лишних сотрудников в команде</div></div>
-      <div class="num-card reveal"><div class="num-val" data-target="40" data-prefix="+" data-suffix="%">+0%</div><div class="num-desc">reply rate в outreach</div></div>
-      <div class="num-card reveal"><div class="num-val" data-static="1">2–3 нед</div><div class="num-desc">среднее время внедрения</div></div>
-      <div class="num-card reveal"><div class="num-val" data-target="60" data-suffix="+">0+</div><div class="num-desc">специалистов в команде</div></div>
+      <div class="num-card reveal"><div class="num-val" data-target="40" data-prefix="+" data-suffix="%">+0%</div><div class="num-desc">конверсия в ответ</div></div>
+      <div class="num-card reveal"><div class="num-val" data-target="50" data-prefix="−" data-suffix="%">−0%</div><div class="num-desc">стоимость контента vs классический продакшн</div></div>
+      <div class="num-card reveal"><div class="num-val" data-target="2" data-prefix="×">×0</div><div class="num-desc">рост продаж у клиентов после внедрения</div></div>
+      <div class="num-card reveal"><div class="num-val" data-static="1">от 14 дней</div><div class="num-desc">до первого результата</div></div>
     </div>
   </div>
 </div>
