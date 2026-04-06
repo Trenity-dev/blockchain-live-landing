@@ -120,56 +120,69 @@
     }
     .num-desc { font-size: 13px; color: var(--muted); line-height: 1.5; }
 
-    /* ── WORKS ── */
+    /* ── CAROUSEL ── */
     .works-sub { color: var(--muted); margin-top: -40px; margin-bottom: 48px; font-size: 15px; }
-    .slider-block { margin-bottom: 60px; }
-    .slider-hd {
+    .carousel-block { margin-bottom: 72px; }
+    .carousel-hd {
       font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 18px;
+      color: var(--muted); margin-bottom: 20px;
       display: flex; align-items: center; gap: 14px;
     }
-    .slider-hd::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .slider-row {
-      display: flex; gap: 14px; overflow-x: auto;
-      padding-bottom: 10px; -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin; scrollbar-color: var(--accent) transparent;
+    .carousel-hd::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+    .carousel-wrap { position: relative; overflow: hidden; border-radius: 14px; }
+    .carousel-track {
+      display: flex; transition: transform .5s cubic-bezier(.4,0,.2,1);
     }
-    .vc {
-      flex-shrink: 0; width: 240px; background: var(--card);
-      border: 1px solid var(--border); border-radius: 10px; overflow: hidden;
-      cursor: pointer; transition: border-color .2s, transform .2s, box-shadow .2s;
+    .carousel-slide {
+      flex-shrink: 0; width: 100%; position: relative; cursor: pointer;
     }
-    .vc:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(46,204,113,.15); }
-    .vc.reel { width: 148px; }
-    .vc-thumb {
-      width: 100%; aspect-ratio: 16/9;
-      background: linear-gradient(135deg, #0d1f15 0%, #0a1610 100%);
-      display: flex; align-items: center; justify-content: center;
-      position: relative;
+    /* 9:16 for reels, 16:9 for adv */
+    .carousel-slide.reel { aspect-ratio: 9/16; max-height: 80vh; }
+    .carousel-slide.adv  { aspect-ratio: 16/9; }
+    .carousel-slide video {
+      width: 100%; height: 100%; object-fit: cover; display: block;
     }
-    .vc.reel .vc-thumb { aspect-ratio: 9/16; }
-    .play-btn {
-      width: 48px; height: 48px; border-radius: 50%;
-      background: var(--accent); display: flex; align-items: center; justify-content: center;
-      font-size: 18px; color: #060D0A; font-weight: 700;
-      box-shadow: 0 0 20px rgba(46,204,113,.5);
-      transition: transform .2s;
-    }
-    .vc:hover .play-btn { transform: scale(1.1); }
-    .sound-btn {
-      position: absolute; bottom: 10px; right: 10px;
-      width: 32px; height: 32px; border-radius: 50%;
-      background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center;
-      font-size: 14px; cursor: pointer; z-index: 2;
+    .carousel-sound {
+      position: absolute; bottom: 16px; right: 16px;
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center;
+      font-size: 16px; cursor: pointer; z-index: 3;
       transition: background .2s;
     }
-    .sound-btn:hover { background: rgba(46,204,113,0.4); }
-    .vc-body { padding: 14px 16px; }
-    .vc-name { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
-    .vc-tag {
-      display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--accent); background: var(--accent-dim);
-      padding: 3px 10px; border-radius: 4px;
+    .carousel-sound:hover { background: rgba(46,204,113,0.5); }
+
+    /* nav arrows */
+    .carousel-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(0,0,0,0.6); border: 1px solid var(--border);
+      color: var(--accent); font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 4; transition: background .2s, border-color .2s;
+    }
+    .carousel-btn:hover { background: rgba(46,204,113,0.2); border-color: var(--accent); }
+    .carousel-btn.prev { left: 12px; }
+    .carousel-btn.next { right: 12px; }
+
+    /* dots */
+    .carousel-dots {
+      display: flex; justify-content: center; gap: 8px; margin-top: 16px;
+    }
+    .carousel-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--border); cursor: pointer;
+      transition: background .3s, transform .3s;
+    }
+    .carousel-dot.active { background: var(--accent); transform: scale(1.3); }
+
+    /* progress bar */
+    .carousel-progress {
+      height: 2px; background: var(--border); border-radius: 2px; margin-top: 10px; overflow: hidden;
+    }
+    .carousel-progress-bar {
+      height: 100%; background: var(--accent); width: 0%;
+      transition: none;
     }
 
     /* Bitronics section */
@@ -188,11 +201,12 @@
     .bstat { display: flex; align-items: baseline; gap: 14px; }
     .bstat-n { font-size: 2.2rem; font-weight: 700; color: var(--accent); line-height: 1; }
     .bstat-l { font-size: 13px; color: var(--muted); }
-    .bit-videos {
-      display: flex; gap: 14px; overflow-x: auto;
-      padding-bottom: 10px; -webkit-overflow-scrolling: touch;
-      scrollbar-width: thin; scrollbar-color: var(--accent) transparent;
+    .carousel-hd-bit {
+      font-size: 13px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 14px;
     }
+    .carousel-hd-bit::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
     /* ── PARTNERSHIP ── */
     #partnership { background: var(--bg); }
@@ -327,58 +341,62 @@
   <h2>Что мы <span>создаём</span></h2>
   <p class="works-sub">Рекламные ролики и Reels — всё через AI</p>
 
-  <div class="slider-block reveal">
-    <div class="slider-hd">Reels (9:16)</div>
-    <div class="slider-row">
-      <div class="vc reel" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Reels/40faa1ea-9525-46f0-99f7-b60e67654b55_2.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
+  <!-- REELS CAROUSEL -->
+  <div class="carousel-block reveal">
+    <div class="carousel-hd">Reels (9:16)</div>
+    <div class="carousel-wrap" id="reels-carousel">
+      <div class="carousel-track" id="reels-track">
+        <div class="carousel-slide reel">
+          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Reels/40faa1ea-9525-46f0-99f7-b60e67654b55_2.mp4" autoplay muted loop playsinline></video>
+          <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
         </div>
-        <div class="vc-body"><div class="vc-name">Reel #1</div><span class="vc-tag">Reels</span></div>
-      </div>
-      <div class="vc reel" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Reels/Zivert%20Full%20POV%20(1).mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
+        <div class="carousel-slide reel">
+          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Reels/Zivert%20Full%20POV%20(1).mp4" muted loop playsinline></video>
+          <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
         </div>
-        <div class="vc-body"><div class="vc-name">Reel #2</div><span class="vc-tag">Reels</span></div>
-      </div>
-      <div class="vc reel" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Reels/%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%B0.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
+        <div class="carousel-slide reel">
+          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Reels/%D0%B3%D0%BE%D1%82%D0%BE%D0%B2%D0%B0.mp4" muted loop playsinline></video>
+          <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
         </div>
-        <div class="vc-body"><div class="vc-name">Reel #3</div><span class="vc-tag">Reels</span></div>
       </div>
+      <button class="carousel-btn prev" onclick="carouselMove('reels',−1)">‹</button>
+      <button class="carousel-btn next" onclick="carouselMove('reels',1)">›</button>
     </div>
+    <div class="carousel-dots" id="reels-dots">
+      <div class="carousel-dot active" onclick="carouselGo('reels',0)"></div>
+      <div class="carousel-dot" onclick="carouselGo('reels',1)"></div>
+      <div class="carousel-dot" onclick="carouselGo('reels',2)"></div>
+    </div>
+    <div class="carousel-progress"><div class="carousel-progress-bar" id="reels-progress"></div></div>
   </div>
 
-  <div class="slider-block reveal">
-    <div class="slider-hd">Рекламные ролики</div>
-    <div class="slider-row">
-      <div class="vc" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/adv/video_2025-10-24_02-37-57.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
+  <!-- ADV CAROUSEL -->
+  <div class="carousel-block reveal">
+    <div class="carousel-hd">Рекламные ролики</div>
+    <div class="carousel-wrap" id="adv-carousel">
+      <div class="carousel-track" id="adv-track">
+        <div class="carousel-slide adv">
+          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/adv/video_2025-10-24_02-37-57.mp4" autoplay muted loop playsinline></video>
+          <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
         </div>
-        <div class="vc-body"><div class="vc-name">Ролик #1</div><span class="vc-tag">Реклама</span></div>
-      </div>
-      <div class="vc" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/adv/%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B8%CC%86.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
+        <div class="carousel-slide adv">
+          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/adv/%D0%BA%D0%BE%D0%BD%D0%B5%D1%87%D0%BD%D1%8B%D0%B8%CC%86.mp4" muted loop playsinline></video>
+          <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
         </div>
-        <div class="vc-body"><div class="vc-name">Ролик #2</div><span class="vc-tag">Реклама</span></div>
-      </div>
-      <div class="vc" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/adv/0320(2).mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
+        <div class="carousel-slide adv">
+          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/adv/0320(2).mp4" muted loop playsinline></video>
+          <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
         </div>
-        <div class="vc-body"><div class="vc-name">Ролик #3</div><span class="vc-tag">Реклама</span></div>
       </div>
+      <button class="carousel-btn prev" onclick="carouselMove('adv',−1)">‹</button>
+      <button class="carousel-btn next" onclick="carouselMove('adv',1)">›</button>
     </div>
+    <div class="carousel-dots" id="adv-dots">
+      <div class="carousel-dot active" onclick="carouselGo('adv',0)"></div>
+      <div class="carousel-dot" onclick="carouselGo('adv',1)"></div>
+      <div class="carousel-dot" onclick="carouselGo('adv',2)"></div>
+    </div>
+    <div class="carousel-progress"><div class="carousel-progress-bar" id="adv-progress"></div></div>
   </div>
 </div>
 
@@ -401,29 +419,33 @@
       </div>
     </div>
 
-    <div class="slider-hd reveal">Видео-кейсы</div>
-    <div class="bit-videos reveal">
-      <div class="vc reel" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Bitronix/Bitronix%20Promo%20Storytell%201%20ENG%20Male.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
+    <!-- BITRONICS CAROUSEL -->
+    <div class="carousel-block reveal">
+      <div class="carousel-hd-bit">Видео-кейсы</div>
+      <div class="carousel-wrap" id="bit-carousel">
+        <div class="carousel-track" id="bit-track">
+          <div class="carousel-slide reel">
+            <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Bitronix/Bitronix%20Promo%20Storytell%201%20ENG%20Male.mp4" autoplay muted loop playsinline></video>
+            <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
+          </div>
+          <div class="carousel-slide reel">
+            <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Bitronix/Bitronix%20Promo%20Storytell%205%20ENG%20Male.mp4" muted loop playsinline></video>
+            <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
+          </div>
+          <div class="carousel-slide reel">
+            <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Bitronix/Bitronix%20Promo%20Storytell%208%20ENG%20Male.mp4" muted loop playsinline></video>
+            <div class="carousel-sound" onclick="toggleCarouselSound(this)">🔇</div>
+          </div>
         </div>
-        <div class="vc-body"><div class="vc-name">Кейс #1</div><span class="vc-tag">Bitronics</span></div>
+        <button class="carousel-btn prev" onclick="carouselMove('bit',−1)">‹</button>
+        <button class="carousel-btn next" onclick="carouselMove('bit',1)">›</button>
       </div>
-      <div class="vc reel" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Bitronix/Bitronix%20Promo%20Storytell%205%20ENG%20Male.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
-        </div>
-        <div class="vc-body"><div class="vc-name">Кейс #2</div><span class="vc-tag">Bitronics</span></div>
+      <div class="carousel-dots" id="bit-dots">
+        <div class="carousel-dot active" onclick="carouselGo('bit',0)"></div>
+        <div class="carousel-dot" onclick="carouselGo('bit',1)"></div>
+        <div class="carousel-dot" onclick="carouselGo('bit',2)"></div>
       </div>
-      <div class="vc reel" onclick="toggleSound(this)">
-        <div class="vc-thumb" style="position:relative;overflow:hidden;">
-          <video src="https://s3.twcstorage.ru/38af486f-b0e9-4d3f-998a-79f712ebcc7f/Bitronix/Bitronix%20Promo%20Storytell%208%20ENG%20Male.mp4" autoplay muted loop playsinline style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0;"></video>
-          <div class="sound-btn">🔇</div>
-        </div>
-        <div class="vc-body"><div class="vc-name">Кейс #3</div><span class="vc-tag">Bitronics</span></div>
-      </div>
+      <div class="carousel-progress"><div class="carousel-progress-bar" id="bit-progress"></div></div>
     </div>
   </div>
 </div>
@@ -493,24 +515,77 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('.num-val[data-target]').forEach(el => cObs.observe(el));
 
-  // Video tap (legacy placeholder cards)
-  function tapCard(c) {
-    const btn = c.querySelector('.play-btn');
-    const on = c.dataset.on === '1';
-    c.dataset.on = on ? '0' : '1';
-    btn.textContent = on ? '▶' : '🔊';
-    if (!on) { c.style.borderColor = 'var(--accent)'; c.style.boxShadow = '0 0 24px rgba(46,204,113,.25)'; }
-    else { c.style.borderColor = ''; c.style.boxShadow = ''; }
+  // ── CAROUSEL ENGINE ──
+  const carousels = {};
+
+  function initCarousel(id, count) {
+    const track = document.getElementById(id + '-track');
+    const dots  = document.getElementById(id + '-dots');
+    const progressBar = document.getElementById(id + '-progress');
+    let current = 0;
+    let timer = null;
+    let startTs = null;
+    const INTERVAL = 10000;
+
+    function goTo(n) {
+      // pause current video, play next
+      const slides = track.querySelectorAll('.carousel-slide');
+      slides[current].querySelector('video').pause();
+      current = (n + count) % count;
+      track.style.transform = `translateX(-${current * 100}%)`;
+      // update dots
+      dots.querySelectorAll('.carousel-dot').forEach((d,i) => d.classList.toggle('active', i === current));
+      // play new video
+      const vid = slides[current].querySelector('video');
+      vid.currentTime = 0;
+      vid.play().catch(()=>{});
+      // restart timer
+      resetTimer();
+    }
+
+    function resetTimer() {
+      if (timer) cancelAnimationFrame(timer);
+      startTs = null;
+      progressBar.style.transition = 'none';
+      progressBar.style.width = '0%';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        progressBar.style.transition = `width ${INTERVAL}ms linear`;
+        progressBar.style.width = '100%';
+      }));
+      function tick(ts) {
+        if (!startTs) startTs = ts;
+        if (ts - startTs >= INTERVAL) { goTo(current + 1); return; }
+        timer = requestAnimationFrame(tick);
+      }
+      timer = requestAnimationFrame(tick);
+    }
+
+    carousels[id] = { goTo };
+    resetTimer();
   }
 
-  // Toggle sound for real video cards
-  function toggleSound(c) {
-    const video = c.querySelector('video');
-    const btn = c.querySelector('.sound-btn');
-    if (!video) return;
+  function carouselMove(id, dir) {
+    const c = carousels[id];
+    const track = document.getElementById(id + '-track');
+    const count = track.querySelectorAll('.carousel-slide').length;
+    const cur = Math.round(Math.abs(parseFloat(track.style.transform || '0')) / 100) % count;
+    c.goTo(cur + dir);
+  }
+
+  function carouselGo(id, n) {
+    carousels[id].goTo(n);
+  }
+
+  function toggleCarouselSound(btn) {
+    const slide = btn.closest('.carousel-slide');
+    const video = slide.querySelector('video');
     video.muted = !video.muted;
     btn.textContent = video.muted ? '🔇' : '🔊';
   }
+
+  initCarousel('reels', 3);
+  initCarousel('adv',   3);
+  initCarousel('bit',   3);
 </script>
 </body>
 </html>
